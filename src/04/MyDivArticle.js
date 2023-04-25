@@ -1,8 +1,10 @@
-const MyDivArticle = () => {
+const MyDivArticle = (probs) => {
+    // 컴포넌트를 사용하는 부분의 태그의 속성이 probs 파라미터로 전달됨.
 
     return (
         <article>
-            <header><h1>MyDivArticle</h1></header>
+            {/* probs.태그 속성 이름 */}
+            <header><h1>{probs.aname}</h1></header>
             <ul>
                 <li>item1</li>
                 <li>item2</li>
