@@ -1,4 +1,4 @@
-import BoxRows from './BoxRows' ;
+import BoxRows from './BoxRows';
 const Box = () => {
     let mvlist = [
         {
@@ -217,9 +217,9 @@ const Box = () => {
                             <th scope="col">증감</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <BoxRows mv={mvlist} />
-                    </tbody>
+
+                    <BoxRows mv={mvlist} />
+
                 </table>
             </article>
         </main>
