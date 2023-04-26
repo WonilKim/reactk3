@@ -29,7 +29,7 @@ const Introduce = () => {
                                     <li><Link to="/Box">[04.25] React box office</Link></li>
                                     <li><Link to="/myclock">[04.21] React MyClock</Link></li>
                                     <li><Link to="/Hello">[04.21] Hello react</Link></li>
-                                    <li><Link to="/">[04.21] Introduce</Link></li>
+                                    <li><Link to="/">[04.21] Introduce (current page)</Link></li>
 
                                 </ol>
                             </div>
