@@ -1,4 +1,7 @@
 import BoxRows from './BoxRows';
+
+import style from './styles/Box.module.css'
+
 const Box = () => {
     let mvlist = [
         {
@@ -203,6 +206,32 @@ const Box = () => {
         }
     ]
 
+    // let date = new Date();
+    // date.setDate(date.getDate() - 1);   // yesterday
+    // let str = date.toISOString().split('T')[0];
+    // console.log(str);
+
+
+    // let boxlist;
+    // let url = 'http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=';
+    // url = str.replaceAll('-', '');
+    // console.log(url)
+    // fetch(url)
+    //     .then((resp) => resp.json())
+    //     .then((data) => {
+    //         boxlist = data.boxOfficeResult.dailyBoxOfficeList;
+    //         let boxTag = '';
+    //         for (let box of boxlist) {
+    //             console.log(box.rank, box.movieNm, box.salesAmt, box.rankInten)
+
+    //          }
+    //         console.log(boxTag)
+
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     });
+
     // console.log(mvlist);
     return (
         <main className="container">
@@ -210,7 +239,7 @@ const Box = () => {
                 <header><h1>일일박스오피스</h1></header>
                 <table>
                     <thead>
-                        <tr>
+                        <tr className={style.thead_tr}>
                             <th scope="col">순위</th>
                             <th scope="col">영화명</th>
                             <th scope="col">매출액</th>
@@ -219,6 +248,7 @@ const Box = () => {
                     </thead>
 
                     <BoxRows mv={mvlist} />
+                    {/* <BoxRows mv={boxlist} /> */}
 
                 </table>
             </article>

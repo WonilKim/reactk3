@@ -1,15 +1,27 @@
 import { useState } from "react";
+import style from './styles/BoxRows.module.css';
+
+// react study
+// lQ0rzJKE71aNnkhePuqn
+// GkjSTQqtru
+
+// reactk3
+// 9_FRlCw3hbVXJH_6W8p_
+// wmaIJ4FX91
+
 
 // const BoxRows = (probs) => {
 const BoxRows = ({ mv }) => {
     // const mvlist = [...probs.mv] ;
     //console.log("boxrows",mv)
 
-    const [footTag, setFootTag] = useState(0);
+    const [footTag, setFootTag] = useState("정보를 확인하시려면 영화를 선택하세요.");
 
     const showMv = (row) => {
-        console.log(row);
-        setFootTag(row.movieCd);
+        let msg = "[" + row.movieCd + "] " + row.movieNm + ", 개봉일 : " + row.openDt;
+        console.log(msg);
+        setFootTag(msg);
+        // [영화코드] 영화명 개봉일:2023-01-02
     }
 
     let trTags = [];
@@ -39,7 +51,7 @@ const BoxRows = ({ mv }) => {
             </tbody>
             <tfoot>
                 <tr>
-                    <td colSpan={4}>{footTag}</td>
+                    <td className={style.foot_td} colSpan={4}>{footTag}</td>
                 </tr>
             </tfoot>
 
