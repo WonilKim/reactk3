@@ -24,8 +24,8 @@ const Introduce = () => {
                                 <img className={style.react_image} src={react_image} alt="" />
                             </div>
                             <div className={style.study_list}>
-                                <ol>
-                                    <li><Link to="/Frcst">[04.27] React custom component</Link></li>
+                                <ol> 
+                                    <li><Link to="/Frcst">[04.27] React fine dust forecast</Link></li>
                                     <li><Link to="/mydiv">[04.25] React custom component</Link></li>
                                     <li><Link to="/Box">[04.25] React box office</Link></li>
                                     <li><Link to="/myclock">[04.21] React MyClock</Link></li>

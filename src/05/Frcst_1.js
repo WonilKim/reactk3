@@ -23,12 +23,11 @@ const Frcst = () => {
     const onButtonClick = (e) => {
         console.log(e.target);
         console.log(e.target.textContent);
-        console.log(dtcn[e.target.textContent]);
+
+        console.log('dtcn[e.target.textContent] = ', dtcn[e.target.textContent]);
 
         let result = dtcn[e.target.textContent].split(',');
         console.log(result);
-
-        setButtonColors(e);
 
         setDetails(
             result.map((item) => {
@@ -36,48 +35,33 @@ const Frcst = () => {
                 let stat = item.split(':')[1].trim();
                 console.log(city, stat);
                 return (
-                    <div className={style.detail_item}>
-                        <div className={style.city}>{city}</div>
-                        <div className={stat === '낮음' ? style.stat_low : (stat === '높음' ? style.stat_high : style.stat_normal)}>{stat}</div>
+                    <div>
+                        <div className='city'>{city}</div>
+                        <div className='stat'>{stat}</div>
+                        {/* <div className={stat == '낮음' ? style.stat_low : (stat == '높음' ? style.stat_high : style.normal) }>{stat}</div> */}
                     </div>
                 )
             })
         );
     }
 
-    const setButtons = () => {
+    buttons = dtKey.map((item, idx) => {
+        // console.log(item, idx);
+        // console.log(data[dtKey[idx]]);
+        // console.log(data[cnKey[idx]]);
+        dtcn[data[dtKey[idx]]] = data[cnKey[idx]];
 
-        buttons = dtKey.map((item, idx) => {
-            // console.log(item, idx);
-            // console.log(data[dtKey[idx]]);
-            // console.log(data[cnKey[idx]]);
-            dtcn[data[dtKey[idx]]] = data[cnKey[idx]];
-    
-            return (
-                <button id={'btn' + idx} className={style.buttons} onClick={onButtonClick}>{data[dtKey[idx]]}</button>
-            );
-    
-        });    
-    }
+        return (
+            <button id={'btn' + idx} onClick={onButtonClick}> {data[dtKey[idx]]} </button>
+        );
 
-    const setButtonColors = (e) => {
-        let btns = document.querySelectorAll("button");
-        console.log(btns);
-
-        for(let btn of btns) {
-            if(btn.id === e.target.id) {
-                btn.style.color = 'black';
-                // btn.style.backgroundColor = 'black';
-            } else {
-                btn.style.color = 'white';
-                // btn.style.backgroundColor = 'blue';
-            }
-        }
-    }
+    });
 
     console.log(dtcn);
 
-    setButtons();
+
+
+
 
     return (
 
@@ -90,8 +74,7 @@ const Frcst = () => {
                 </div>
 
                 <footer>
-                    <div className={style.detail}>{details}</div>
-
+                    {details}
                 </footer>
             </article>
         </main>

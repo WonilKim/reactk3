@@ -1,0 +1,45 @@
+.buttons {
+    /* background-color:white;
+    color: blue; */
+}
+
+.city {
+    margin-bottom: 4px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+
+    /* background-color: aqua; */
+}
+
+.stat_low {
+    color: green;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+
+}
+
+.stat_normal {
+    color: blue;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+
+}
+
+.stat_high {
+    color: red;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+
+}
+
+.detail {
+    /* background-color: blueviolet; */
+    width: 100%;
+    display: flex;
+}
+
+.detail_item {
+    width: 100%;
+    height: 100%;
+    /* background-color: orange; */
+}
