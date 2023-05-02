@@ -1,9 +1,0 @@
-.total {
-    display: flex;
-    flex-direction: column;
-}
-
-.rows {
-    display: flex;
-    flex-direction: row;
-}

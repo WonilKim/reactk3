@@ -6,7 +6,8 @@
 ## React
 ### https://reactk3.web.app
 
-+ 23.04.28 : React fine dust forecast
++ 23.05.02 : React traffic accident (useEffect)
++ 23.04.28 : React fine dust forecast (useState)
 + 23.04.27 : React box office
 + 23.04.25 : React custom component
 + 23.04.21 : React basic
