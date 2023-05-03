@@ -1,0 +1,25 @@
+.styleCategory {
+    display: flex;
+    flex-direction: row;
+    /* background-color: yellow; */
+}
+
+.checkboxes {
+    /* background-color: yellowgreen; */
+    width: 50%;
+    text-align: left;
+}
+
+.titles {
+    width: 30%;
+    height: 100%;
+    margin-right: 10%;
+    vertical-align: middle;
+    /* background-color: tomato; */
+}
+
+.divs {
+    display: flex;
+    flex-direction: row;
+    /* background-color: violet; */
+}

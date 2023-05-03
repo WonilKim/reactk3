@@ -8,6 +8,7 @@ import Box from './03/Box';
 import MyDiv from './04/MyDiv'; // 새로 만든 파일(함수) 이름. 첫글자는 대문자
 import Frcst from './05/Frcst';
 import Taccident from './06/Taccident';
+import Fashion from './fashion/Fashion';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <Route path='/mydiv' element={<MyDiv />} />
       <Route path='/Frcst' element={<Frcst />} />
       <Route path='/Taccident' element={<Taccident />} />
+      <Route path='/Fashion' element={<Fashion />} />
 
     </Routes>
   );
