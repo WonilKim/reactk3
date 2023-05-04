@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const TaccidentNav1 = (probs) => {
 
     let c1 = probs.c1;
@@ -8,10 +10,18 @@ const TaccidentNav1 = (probs) => {
     let sel1 = probs.sel1;
     let setSel1 = probs.setSel1;
 
+    const onButtonClick = (e, item) => {
+        console.log("onButtonClick");
+        console.log(e.target);
+        // console.log(item);
+
+        setSel1(item);
+    }
+
     const btTags = (
-        c1.map((item)=> {
+        c1.map((item) => {
             return (
-                <li key={item}><button onClick={() => setSel1(item)}>{item}</button></li>
+                <li key={item}><button onClick={(e) => onButtonClick(e, item)} style={{ backgroundColor: sel1 === item ? "black" : "blue" }}>{item}</button></li>
             );
         })
     );

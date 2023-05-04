@@ -329,10 +329,10 @@ const Fashion_01 = () => {
                 <details open>
                     <summary><h4>카테고리</h4></summary>
                     <div className={style.divs}>
-                        <div className={style.titles}><strong>선호하는 카테고리를 모두 선택하세요.</strong></div>
+                        {/* <div className={style.titles}><strong>선호하는 카테고리를 모두 선택하세요.</strong></div>
                         <fieldset className={style.checkboxes}>
                             {categoryTags}
-                        </fieldset>
+                        </fieldset> */}
                     </div>
                 </details>
 

@@ -9,6 +9,8 @@ import MyDiv from './04/MyDiv'; // 새로 만든 파일(함수) 이름. 첫글�
 import Frcst from './05/Frcst';
 import Taccident from './06/Taccident';
 import Fashion from './fashion/Fashion';
+import MyRef_01 from './07/MyRef_01';
+import MyRef from './07/MyRef';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
       <Route path='/Frcst' element={<Frcst />} />
       <Route path='/Taccident' element={<Taccident />} />
       <Route path='/Fashion' element={<Fashion />} />
+      <Route path='/MyRef_01' element={<MyRef_01 />} />
+      <Route path='/MyRef' element={<MyRef />} />
 
     </Routes>
   );

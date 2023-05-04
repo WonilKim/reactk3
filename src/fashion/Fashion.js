@@ -1,3 +1,4 @@
+import FashionChecker from './FashionChecker';
 import style from './styles/Fashion.module.css';
 import { useState, useEffect } from 'react';
 
@@ -7,7 +8,7 @@ const Fashion = () => {
     const parts = ['상의', '하의', '아우터', '원피스'];
 
     // 스타일
-    const styles = ['기타', '매니시', '스포티', '스트리트', '레트로', '섹시', '리조트', '로맨틱',
+    const common_styles = ['기타', '매니시', '스포티', '스트리트', '레트로', '섹시', '리조트', '로맨틱',
         '밀리터리', '소피스트케이티드', '모던', '오리엔탈', '웨스턴', '젠더리스', '컨트리', '아방가르드'].sort();
 
     // 카테고리
@@ -76,6 +77,28 @@ const Fashion = () => {
 
     }, [selectedFits]);
 
+    const [styleTags, setStyleTags] = useState(0);
+    const [selectedStyles, setSelectedStyles] = useState([]);
+    useEffect(() => {
+        console.log('-- useEffect() selectedStyles changed', selectedStyles);
+
+    }, [selectedStyles]);
+
+
+    //    const styleTags = (
+    //         styles.map((item) => {
+    //             return (
+    //                 <label key={item} >
+    //                     <input type="checkbox" className="styleCheckbox" id={item} name={item} value={item} onChange={onStyleChanged} />
+    //                     {item}
+    //                 </label>
+    //             );
+
+    //         })
+    //     );
+
+
+
     const [selectedPart, setSelectedPart] = useState(0);
     // selectedPart 가 바뀌면 실행됨
     useEffect(() => {
@@ -86,6 +109,7 @@ const Fashion = () => {
         let sleeve_lengths = [];
         let necklines = [];
         let fits = [];
+        let styles = [];
 
         switch (selectedPart) {
             case "상의":
@@ -94,6 +118,7 @@ const Fashion = () => {
                 sleeve_lengths = top_sleeve_length;
                 necklines = top_neckline;
                 fits = top_fit;
+                styles = common_styles;
                 break;
             case "하의":
                 categories = [...bottom_category].sort();
@@ -101,6 +126,7 @@ const Fashion = () => {
                 sleeve_lengths = bottom_sleeve_length;
                 necklines = bottom_neckline;
                 fits = bottom_fit;
+                styles = common_styles;
                 break;
             case "아우터":
                 categories = [...outer_category].sort();
@@ -108,6 +134,7 @@ const Fashion = () => {
                 sleeve_lengths = outer_sleeve_length;
                 necklines = outer_neckline;
                 fits = outer_fit;
+                styles = common_styles;
                 break;
             case "원피스":
                 categories = [...onepiece_category].sort();
@@ -115,6 +142,7 @@ const Fashion = () => {
                 sleeve_lengths = onepiece_sleeve_length;
                 necklines = onepiece_neckline;
                 fits = onepiece_fit;
+                styles = common_styles;
                 break;
             default:
                 break;
@@ -169,6 +197,17 @@ const Fashion = () => {
                 return (
                     <label key={item} >
                         <input type="checkbox" className="fitCheckbox" id={item} name={item} value={item} onChange={onFitChanged} />
+                        {item}
+                    </label>
+                );
+            })
+        );
+
+        setStyleTags(
+            styles.map((item) => {
+                return (
+                    <label key={item} >
+                        <input type="checkbox" className="styleCheckbox" id={item} name={item} value={item} onChange={onStyleChanged} />
                         {item}
                     </label>
                 );
@@ -249,37 +288,6 @@ const Fashion = () => {
         setSelectedFits(values);
     }
 
-
-
-    // 의상 종류 라디오버튼 선택 변경 이벤트 함수
-    const onPartChanged = (e) => {
-        console.log("onPartChaned()");
-        console.log(e.target.value);
-        setSelectedPart(e.target.value);
-        setCategoryTags(e.target.value);
-    }
-
-    // 의상 종류 선택 태그
-    const partTags = (
-        parts.map((item) => {
-            return (
-                <label key={item} >
-                    <input type="radio" id={item} name="part" value={item} onChange={onPartChanged} />
-                    {item}
-                </label>
-            );
-
-        })
-    );
-
-    const [selectedStyles, setSelectedStyles] = useState([]);
-
-    useEffect(() => {
-        console.log('-- useEffect() selectedStyles changed', selectedStyles);
-
-    }, [selectedStyles]);
-
-
     const onStyleChanged = (e) => {
         console.log("onStyleChanged()");
         // console.log(e.target);
@@ -294,11 +302,22 @@ const Fashion = () => {
         setSelectedStyles(values);
     }
 
-    const styleTags = (
-        styles.map((item) => {
+
+
+    // 의상 종류 라디오버튼 선택 변경 이벤트 함수
+    const onPartChanged = (e) => {
+        console.log("onPartChaned()");
+        console.log(e.target.value);
+        setSelectedPart(e.target.value);
+        // setCategoryTags(e.target.value);
+    }
+
+    // 의상 종류 선택 태그
+    const partTags = (
+        parts.map((item) => {
             return (
                 <label key={item} >
-                    <input type="checkbox" className="styleCheckbox" id={item} name={item} value={item} onChange={onStyleChanged} />
+                    <input type="radio" id={item} name="part" value={item} onChange={onPartChanged} />
                     {item}
                 </label>
             );
@@ -326,65 +345,24 @@ const Fashion = () => {
                     </div>
                 </details>
 
-                <details open>
-                    <summary><h4>카테고리</h4></summary>
-                    <div className={style.divs}>
-                        <div className={style.titles}><strong>선호하는 카테고리를 모두 선택하세요.</strong></div>
-                        <fieldset className={style.checkboxes}>
-                            {categoryTags}
-                        </fieldset>
-                    </div>
-                </details>
+                <FashionChecker summary="카테고리" description="선호하는 카테고리를 모두 선택하세요."
+                    tags={categoryTags} setTags={setCategoryTags} />
 
-                <details>
-                    <summary><h4>기장</h4></summary>
-                    <div className={style.divs}>
-                        <div className={style.titles}><strong>원하는 기장을 모두 선택하세요.</strong></div>
-                        <fieldset className={style.checkboxes}>
-                            {lengthTags}
-                        </fieldset>
-                    </div>
-                </details>
+                <FashionChecker summary="기장" description="원하는 기장을 모두 선택하세요."
+                    tags={lengthTags} setTags={setLengthTags} />
 
-                <details>
-                    <summary><h4>소매 기장</h4></summary>
-                    <div className={style.divs}>
-                        <div className={style.titles}><strong>원하는 소매 기장을 모두 선택하세요.</strong></div>
-                        <fieldset className={style.checkboxes}>
-                            {sleeveLengthTags}
-                        </fieldset>
-                    </div>
-                </details>
+                <FashionChecker summary="소매 기장" description="원하는 소매 기장을 모두 선택하세요."
+                    tags={sleeveLengthTags} setTags={setSleeveLengthTags} />
 
-                <details>
-                    <summary><h4>넥 라인</h4></summary>
-                    <div className={style.divs}>
-                        <div className={style.titles}><strong>원하는 넥 라인을 모두 선택하세요.</strong></div>
-                        <fieldset className={style.checkboxes}>
-                            {necklineTags}
-                        </fieldset>
-                    </div>
-                </details>
+                <FashionChecker summary="넥 라인" description="원하는 넥 라인을 모두 선택하세요."
+                    tags={necklineTags} setTags={setNecklineTags} />
 
-                <details>
-                    <summary><h4>핏</h4></summary>
-                    <div className={style.divs}>
-                        <div className={style.titles}><strong>원하는 핏을 모두 선택하세요.</strong></div>
-                        <fieldset className={style.checkboxes}>
-                            {fitTags}
-                        </fieldset>
-                    </div>
-                </details>
+                <FashionChecker summary="핏" description="원하는 핏을 모두 선택하세요."
+                    tags={fitTags} setTags={setFitTags} />
 
-                <details>
-                    <summary><h4>스타일</h4></summary>
-                    <div className={style.divs}>
-                        <div className={style.titles}><strong>원하는 스타일을 모두 선택하세요.</strong></div>
-                        <fieldset className={style.checkboxes}>
-                            {styleTags}
-                        </fieldset>
-                    </div>
-                </details>
+                <FashionChecker summary="스타일" description="원하는 스타일을 모두 선택하세요."
+                    tags={styleTags} setTags={setStyleTags} />
+
 
             </article>
 

@@ -25,6 +25,8 @@ const Introduce = () => {
                             </div>
                             <div className={style.study_list}>
                                 <ol>
+                                    <li><Link to="/MyRef">[05.04] React useRef</Link></li>
+                                    <li><Link to="/MyRef_01">[05.04] React useRef 01</Link></li>
                                     <li><Link to="/Taccident">[05.02] React traffic accident</Link></li>
                                     <li><Link to="/Frcst">[04.27] React fine dust forecast</Link></li>
                                     <li><Link to="/mydiv">[04.25] React custom component</Link></li>

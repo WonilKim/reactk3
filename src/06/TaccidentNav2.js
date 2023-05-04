@@ -23,9 +23,17 @@ const TaccidentNav2 = (probs) => {
     //     })
     // );
 
+    const onButtonClick = (e, item) => {
+        console.log("onButtonClick");
+        console.log(e.target);
+        // console.log(item);
+
+        setSel2(item[1])
+    }
+
     const btTags = c2.filter((item)=> item[0] === sel1).map((item) => {
         return (
-            <li key={item[1]}><button onClick={() => setSel2(item[1])}>{item[1]}</button></li>
+            <li key={item[1]}><button onClick={(e) => onButtonClick(e, item)} style={{ backgroundColor: sel2 === item[1] ? "black" : "blue" }}>{item[1]}</button></li>
         );
     });
 
