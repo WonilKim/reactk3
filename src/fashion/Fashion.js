@@ -333,6 +333,17 @@ const Fashion = () => {
                         <h1>패션 추천 시스템</h1>
                         <h3>Fashion Recommend System</h3>
                     </hgroup>
+                    {/* <div className={style.divLogo}> */}
+                    <div className="grid">
+                        <img className={style.images} src={process.env.PUBLIC_URL + '/images/samples/images/스트리트/1199046.jpg'} alt="logo0" />
+                        <img className={style.images} src={process.env.PUBLIC_URL + '/images/samples/images/로맨틱/47831.jpg'} alt="logo1" />
+                        <img className={style.images} src={process.env.PUBLIC_URL + '/images/samples/images/클래식/369406.jpg'} alt="logo2" />
+                        <img className={style.images} src={process.env.PUBLIC_URL + '/images/samples/images/모던/1325711.jpg'} alt="logo3" />
+                        <img className={style.images} src={process.env.PUBLIC_URL + '/images/samples/images/리조트/10.jpg'} alt="logo4" />
+                        <img className={style.images} src={process.env.PUBLIC_URL + '/images/samples/images/스포티/1266856.jpg'} alt="logo5" />
+                        <img className={style.images} src={process.env.PUBLIC_URL + '/images/samples/images/펑크/384851.jpg'} alt="logo6" />
+                        <img className={style.images} src={process.env.PUBLIC_URL + '/images/samples/images/섹시/514328.jpg'} alt="logo7" />
+                    </div>
                 </header>
 
                 <details open>
