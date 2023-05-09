@@ -1,0 +1,9 @@
+.output {
+    display: inline-flex;
+    border-radius: 4px;
+    background-color: red;
+    color: white;
+    margin: 4px;
+    padding: 4px;
+    
+}

@@ -11,6 +11,7 @@ import Taccident from './06/Taccident';
 import Fashion from './fashion/Fashion';
 import MyRef_01 from './07/MyRef_01';
 import MyRef from './07/MyRef';
+import Box_2 from './03/Box_2';
 
 function App() {
   return (
@@ -25,14 +26,15 @@ function App() {
       <Route path='/' element={<Introduce />} />
       <Route path='/Hello' element={<Hello />} />
       <Route path='/myclock' element={<MyClock />} />
-      <Route path='/Box' element={<Box />} />
+      <Route path='/Box_2' element={<Box_2 />} />
       <Route path='/mydiv' element={<MyDiv />} />
       <Route path='/Frcst' element={<Frcst />} />
       <Route path='/Taccident' element={<Taccident />} />
       <Route path='/Fashion' element={<Fashion />} />
       <Route path='/MyRef_01' element={<MyRef_01 />} />
       <Route path='/MyRef' element={<MyRef />} />
-
+      <Route path='/Box' element={<Box />} />
+ 
     </Routes>
   );
 }
