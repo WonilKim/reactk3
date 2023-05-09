@@ -6,7 +6,9 @@ const Gallary = () => {
 
     const txtRef = useRef();
 
-    const [itemTags, setItemTags] = useState();
+    const [leftItemTags, setLeftItemTags] = useState();
+    const [rightItemTags, setRightItemTags] = useState();
+    const [bottomItemTags, setBottomItemTags] = useState();
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -37,6 +39,11 @@ const Gallary = () => {
 
         if (txtRef.current.value === "") return;
 
+        setLeftItemTags(<></>);
+        setRightItemTags(<></>);
+        setBottomItemTags(<strong>검색 중 입니다</strong>);
+
+
         console.log("txtRef.current.value = ", txtRef.current.value);
 
         let incodedKeyword = encodeURI(txtRef.current.value);
@@ -63,13 +70,91 @@ const Gallary = () => {
                     console.log(item["galTitle"]);
                 }
 
-                setItemTags(
-                    listItem.map((item) => {
+                let listLeftItem = [];
+                let listRightItem = [];
+                let listBottomItem = [];
+
+                for (let i = 0; i < listItem.length; i++) {
+                    console.log(" - ", listItem[i]["galTitle"]);
+
+                    if (i % 2 === 0) {
+                        if (i === listItem.length - 1) {
+                            listBottomItem.push(listItem[i]);
+
+                        } else {
+                            listLeftItem.push(listItem[i]);
+
+                        }
+                    } else {
+                        listRightItem.push(listItem[i]);
+                    }
+                }
+
+                setLeftItemTags(
+                    listLeftItem.map((item) => {
                         return (
-                            <div>
-                                <div key={item["galTitle"]}>{item["galTitle"]}</div>
+                            <article key={item["galTitle"]}>
+                                <hgroup>
+                                    <h4>{item["galTitle"]}</h4>
+                                    <h5>{item["galPhotographyLocation"]}</h5>
+                                </hgroup>
                                 <img className={style.images} src={item["galWebImageUrl"]} alt={item["galTitle"]} />
-                            </div>
+                                <div>
+                                    <div>
+                                        {item["galSearchKeyword"].split(",").map((searchKey) => {
+                                            return (
+                                                <span key={searchKey} className={style.output}>{searchKey}</span>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </article>
+                        );
+                    })
+                );
+
+                setRightItemTags(
+                    listRightItem.map((item) => {
+                        return (
+                            <article key={item["galTitle"]}>
+                                <hgroup>
+                                    <h4>{item["galTitle"]}</h4>
+                                    <h5>{item["galPhotographyLocation"]}</h5>
+                                </hgroup>
+                                <img className={style.images} src={item["galWebImageUrl"]} alt={item["galTitle"]} />
+                                <div>
+                                    <div>
+                                        {item["galSearchKeyword"].split(",").map((searchKey) => {
+                                            return (
+                                                <span key={searchKey} className={style.output}>{searchKey}</span>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </article>
+                        );
+                    })
+                );
+
+                setBottomItemTags(
+                    listBottomItem.map((item) => {
+                        return (
+                            <article key={item["galTitle"]}>
+                                <hgroup>
+                                    <h4>{item["galTitle"]}</h4>
+                                    <h5>{item["galPhotographyLocation"]}</h5>
+                                </hgroup>
+                                <img className={style.images} src={item["galWebImageUrl"]} alt={item["galTitle"]} />
+                                <div>
+                                    <div>
+                                        {item["galSearchKeyword"].split(",").map((searchKey) => {
+                                            return (
+                                                <span key={searchKey} className={style.output}>{searchKey}</span>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </article>
                         );
                     })
                 );
@@ -77,17 +162,22 @@ const Gallary = () => {
             })
             .catch((err) => {
                 console.log("err = ", err);
+                setBottomItemTags(<strong>검색 결과가 없습니다</strong>);
             });
 
 
-        // reset input
-        txtRef.current.value = "";
+        // // reset input
+        // txtRef.current.value = "";
     }
 
     const reset = (e) => {
         console.log("reset()");
 
         e.preventDefault();
+
+        setLeftItemTags(<></>);
+        setRightItemTags(<></>);
+        setBottomItemTags(<></>);
 
         // reset input
         txtRef.current.value = "";
@@ -117,9 +207,17 @@ const Gallary = () => {
                         </div>
                     </div>
                 </form>
+                <div className="grid">
+                    <div>
+                        {leftItemTags}
+                    </div>
+                    <div>
+                        {rightItemTags}
+                    </div>
+                </div>
                 <div>
                     <div>
-                        {itemTags}
+                        {bottomItemTags}
                     </div>
                 </div>
             </article>
