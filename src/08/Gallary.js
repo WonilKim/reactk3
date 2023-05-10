@@ -9,6 +9,7 @@ const Gallary = () => {
     const [leftItemTags, setLeftItemTags] = useState();
     const [rightItemTags, setRightItemTags] = useState();
     const [bottomItemTags, setBottomItemTags] = useState();
+    const [navTags, setNavTags] = useState();
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -20,18 +21,9 @@ const Gallary = () => {
 
     let dataCount = 10;
     let pageNumber = 1;
-    let arrangeList = ['A', 'B', 'C'];
+    let sorting = "A";
 
     const endPoint = "https://apis.data.go.kr/B551011/PhotoGalleryService1/gallerySearchList1";
-    let numOfRows = "numOfRows=" + dataCount;
-    let pageNo = "pageNo=" + pageNumber;
-    let MobileOS = "MobileOS=" + "ETC";
-    let MobileApp = "MobileApp=" + "AppTest";
-    let arrange = "arrange=" + arrangeList[0];
-    let keyword = "keyword=";
-    let _type = "_type=" + "json";
-    let serviceKey = "serviceKey=" + "bDGAQNJcfogHI9UKaWvKrPWoDTYN53jAz7PJEVfIrlNRw3umqGcHxEWqhGthY23u01QoXK%2F8RUfU%2F4ch19XygQ%3D%3D";
-
     const search = (e) => {
         console.log("search()");
 
@@ -42,7 +34,16 @@ const Gallary = () => {
         setLeftItemTags(<></>);
         setRightItemTags(<></>);
         setBottomItemTags(<strong>검색 중 입니다</strong>);
+        setNavTags(<></>);
 
+        let paramNumOfRows = "numOfRows=" + dataCount;
+        let paramPageNo = "pageNo=" + pageNumber;
+        let paramMobileOS = "MobileOS=" + "ETC";
+        let paramMobileApp = "MobileApp=" + "AppTest";
+        let paramArrange = "arrange=" + sorting;
+        let paramKeyword = "keyword=";
+        let paramType = "_type=" + "json";
+        let paramServiceKey = "serviceKey=" + "bDGAQNJcfogHI9UKaWvKrPWoDTYN53jAz7PJEVfIrlNRw3umqGcHxEWqhGthY23u01QoXK%2F8RUfU%2F4ch19XygQ%3D%3D";
 
         console.log("txtRef.current.value = ", txtRef.current.value);
 
@@ -54,8 +55,8 @@ const Gallary = () => {
         // https://apis.data.go.kr/B551011/PhotoGalleryService1/gallerySearchList1?serviceKey=bDGAQNJcfogHI9UKaWvKrPWoDTYN53jAz7PJEVfIrlNRw3umqGcHxEWqhGthY23u01QoXK%2F8RUfU%2F4ch19XygQ%3D%3D&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&keyword=%EC%9E%90%EA%B0%88%EC%B9%98&_type=json
         // url
         let url = endPoint +
-            "?" + serviceKey + "&" + numOfRows + "&" + pageNo + "&" + MobileOS + "&" + MobileApp +
-            "&" + arrange + "&" + keyword + incodedKeyword + "&" + _type;
+            "?" + paramServiceKey + "&" + paramNumOfRows + "&" + paramPageNo + "&" + paramMobileOS + "&" + paramMobileApp +
+            "&" + paramArrange + "&" + paramKeyword + incodedKeyword + "&" + paramType;
         console.log("url = ", url);
 
         fetch(url)
@@ -66,9 +67,25 @@ const Gallary = () => {
 
                 let listItem = data["response"]["body"]["items"]["item"];
 
-                for (let item of listItem) {
-                    console.log(item["galTitle"]);
+                // for (let item of listItem) {
+                //     console.log(item["galTitle"]);
+                // }
+
+                let totalCount = data["response"]["body"]["totalCount"];
+                let pageCount = 0;
+                if (totalCount % 10 > 0) {
+                    pageCount = Math.floor(totalCount / 10) + 1;
+                } else {
+                    pageCount = Math.floor(totalCount / 10);
                 }
+                let pageArray = [];
+
+                console.log("totalCount = ", totalCount);
+                console.log("pageCount = ", pageCount);
+                for (let i = 0; i < pageCount; i++) {
+                    pageArray.push(i + 1);
+                }
+
 
                 let listLeftItem = [];
                 let listRightItem = [];
@@ -90,72 +107,63 @@ const Gallary = () => {
                     }
                 }
 
-                setLeftItemTags(
-                    listLeftItem.map((item) => {
-                        return (
-                            <article key={item["galTitle"]}>
-                                <hgroup>
-                                    <h4>{item["galTitle"]}</h4>
-                                    <h5>{item["galPhotographyLocation"]}</h5>
-                                </hgroup>
-                                <img className={style.images} src={item["galWebImageUrl"]} alt={item["galTitle"]} />
+                const setItemTags = (item) => {
+                    let tempArrayKeyword = item["galSearchKeyword"].split(",");
+                    let setKeyword = new Set();
+                    // console.log("tempArrayKeyword = ", tempArrayKeyword);
+                    // console.log("new Set(tempArrayKeyword) = ", new Set(tempArrayKeyword));
+                    for (let kw of tempArrayKeyword) {
+                        setKeyword.add(kw.trim());
+                    }
+                    let arrayKeyword = [...setKeyword];
+                    // console.log("arrayKeyword = ", arrayKeyword);
+
+                    return (
+                        <article key={item["galTitle"]}>
+                            <hgroup>
+                                <h4>{item["galTitle"]}</h4>
+                                <h5>{item["galPhotographyLocation"]}</h5>
+                            </hgroup>
+                            <img className={style.images} src={item["galWebImageUrl"]} alt={item["galTitle"]} />
+                            <div>
                                 <div>
-                                    <div>
-                                        {item["galSearchKeyword"].split(",").map((searchKey) => {
-                                            return (
-                                                <span key={searchKey} className={style.output}>{searchKey}</span>
-                                            );
-                                        })}
-                                    </div>
+                                    {arrayKeyword.map((searchKey) => {
+                                        return (
+                                            <span key={searchKey} className={style.output}>{searchKey}</span>
+                                        );
+                                    })}
                                 </div>
-                            </article>
-                        );
-                    })
+                            </div>
+                        </article>
+                    );
+                }
+
+                // 
+                setLeftItemTags(
+                    listLeftItem.map((item) => setItemTags(item))
                 );
 
                 setRightItemTags(
-                    listRightItem.map((item) => {
-                        return (
-                            <article key={item["galTitle"]}>
-                                <hgroup>
-                                    <h4>{item["galTitle"]}</h4>
-                                    <h5>{item["galPhotographyLocation"]}</h5>
-                                </hgroup>
-                                <img className={style.images} src={item["galWebImageUrl"]} alt={item["galTitle"]} />
-                                <div>
-                                    <div>
-                                        {item["galSearchKeyword"].split(",").map((searchKey) => {
-                                            return (
-                                                <span key={searchKey} className={style.output}>{searchKey}</span>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            </article>
-                        );
-                    })
+                    listRightItem.map((item) => setItemTags(item))
                 );
 
                 setBottomItemTags(
-                    listBottomItem.map((item) => {
-                        return (
-                            <article key={item["galTitle"]}>
-                                <hgroup>
-                                    <h4>{item["galTitle"]}</h4>
-                                    <h5>{item["galPhotographyLocation"]}</h5>
-                                </hgroup>
-                                <img className={style.images} src={item["galWebImageUrl"]} alt={item["galTitle"]} />
-                                <div>
-                                    <div>
-                                        {item["galSearchKeyword"].split(",").map((searchKey) => {
-                                            return (
-                                                <span key={searchKey} className={style.output}>{searchKey}</span>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            </article>
-                        );
+                    listBottomItem.map((item) => setItemTags(item))
+                );
+
+                setNavTags(
+                    pageArray.map((item) => {
+                        if (Math.abs(item - pageNumber) < 4) {
+                            return (
+                                <li key={item} className={style.navButton}>
+                                    <button className={item === pageNumber ? "contrast outline" : "outline"}
+                                        onClick={navButtonClicked}>
+                                        {item}
+                                    </button>
+                                </li>
+                            );
+                        }
+
                     })
                 );
 
@@ -164,7 +172,6 @@ const Gallary = () => {
                 console.log("err = ", err);
                 setBottomItemTags(<strong>검색 결과가 없습니다</strong>);
             });
-
 
         // // reset input
         // txtRef.current.value = "";
@@ -178,15 +185,36 @@ const Gallary = () => {
         setLeftItemTags(<></>);
         setRightItemTags(<></>);
         setBottomItemTags(<></>);
+        setNavTags(<></>);
 
         // reset input
         txtRef.current.value = "";
 
     }
 
+    const navButtonClicked = (e) => {
+        console.log("navButtonClicked()");
+
+        e.preventDefault();
+
+        pageNumber = Number(e.target.innerHTML);
+        console.log("pageNumber = ", pageNumber);
+
+        search(e);
+    }
+
     useEffect(() => {
         txtRef.current.focus();
     }, []);
+
+    const sortingChanged = (e) => {
+        console.log("sortingChanged()");
+
+        sorting = e.target.value;
+        console.log("sorting = ", sorting);
+
+        search(e);
+    }
 
 
     return (
@@ -206,6 +234,26 @@ const Gallary = () => {
                             <button onClick={(e) => reset(e)}>리셋</button>
                         </div>
                     </div>
+                    <div>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <select id="sorting" defaultValue="A" onChange={sortingChanged}>
+                                        <option value="A">촬영일</option>
+                                        <option value="B">제목</option>
+                                        <option value="C">수정일</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <label htmlFor="sorting">순서 정렬</label>
+                                </li>
+                            </ul>
+                            <ul>
+                                {navTags}
+                            </ul>
+
+                        </nav>
+                    </div>
                 </form>
                 <div className="grid">
                     <div>
@@ -220,6 +268,19 @@ const Gallary = () => {
                         {bottomItemTags}
                     </div>
                 </div>
+                <footer>
+                    <nav>
+                        <ul>
+                            ◀
+                        </ul>
+                        <ul>
+                            {navTags}
+                        </ul>
+                        <ul>
+                            ▶
+                        </ul>
+                    </nav>
+                </footer>
             </article>
         </main>
 

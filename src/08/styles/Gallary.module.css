@@ -11,3 +11,17 @@
     padding: 4px;
     
 }
+
+.navButton {
+    /* display: inline-flex;
+    margin: 4px;
+    padding: 4px; */
+}
+
+.displayHide {
+    display: none;
+}
+
+.displayBlock {
+    display: block;
+}
