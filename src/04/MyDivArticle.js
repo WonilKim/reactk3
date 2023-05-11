@@ -21,6 +21,7 @@ import { useState } from 'react';
 //         </article>
 //     );
 // }
+// ( probs )
 
 const MyDivArticle = ({ aname }) => {
     // 파라미터(속성값)을 지정해 받는 방법 

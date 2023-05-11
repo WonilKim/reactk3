@@ -1,28 +1,26 @@
 import { useState, useEffect, useRef } from "react";
-import style from './styles/Gallary.module.css';
-import GallaryArticle from "./GallaryArticle";
+import style from './styles/Gallary_1.module.css';
 
 const Gallary = () => {
 
     const txtRef = useRef();
 
-    const [columnItemTags, setColumnItemTags] = useState();
+    const [leftItemTags, setLeftItemTags] = useState();
+    const [rightItemTags, setRightItemTags] = useState();
     const [bottomItemTags, setBottomItemTags] = useState();
     const [navTags, setNavTags] = useState();
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             console.log("handleKeyDown() enter");
-
-            search(event);
+            // 👇 Get input value
+            //setOutput();
         }
     };
 
     let dataCount = 10;
     let pageNumber = 1;
     let sorting = "A";
-    let pageCount = 0;
-    const navButtonCount = 3;
 
     const endPoint = "https://apis.data.go.kr/B551011/PhotoGalleryService1/gallerySearchList1";
     const search = (e) => {
@@ -32,7 +30,8 @@ const Gallary = () => {
 
         if (txtRef.current.value === "") return;
 
-        setColumnItemTags(<></>);
+        setLeftItemTags(<></>);
+        setRightItemTags(<></>);
         setBottomItemTags(<strong>검색 중 입니다</strong>);
         setNavTags(<></>);
 
@@ -72,7 +71,7 @@ const Gallary = () => {
                 // }
 
                 let totalCount = data["response"]["body"]["totalCount"];
-                pageCount = 0;
+                let pageCount = 0;
                 if (totalCount % 10 > 0) {
                     pageCount = Math.floor(totalCount / 10) + 1;
                 } else {
@@ -86,7 +85,7 @@ const Gallary = () => {
                     pageArray.push(i + 1);
                 }
 
-                let listColumnItem = [];
+
                 let listLeftItem = [];
                 let listRightItem = [];
                 let listBottomItem = [];
@@ -95,50 +94,57 @@ const Gallary = () => {
                     console.log(" - ", listItem[i]["galTitle"]);
 
                     if (i % 2 === 0) {
-                        // 데이터 인덱스가 짝수이면
                         if (i === listItem.length - 1) {
-                            // 데이터가 마지막 인덱스이면 아래 배열에 삽입
                             listBottomItem.push(listItem[i]);
+
                         } else {
-                            // 좌측 배열에 삽입
                             listLeftItem.push(listItem[i]);
 
-                            // 컬럼 배열에 배열로 만들어 삽입
-                            listColumnItem.push([listItem[i], listItem[i + 1]]);
                         }
                     } else {
-                        // 우측 배열에 삽입
                         listRightItem.push(listItem[i]);
                     }
                 }
 
-                // console.log("* listColumnItem = ", listColumnItem);
-
                 const setItemTags = (item) => {
+                    let tempArrayKeyword = item["galSearchKeyword"].split(",");
+                    let setKeyword = new Set();
+                    // console.log("tempArrayKeyword = ", tempArrayKeyword);
+                    // console.log("new Set(tempArrayKeyword) = ", new Set(tempArrayKeyword));
+                    for (let kw of tempArrayKeyword) {
+                        setKeyword.add(kw.trim());
+                    }
+                    let arrayKeyword = [...setKeyword];
+                    // console.log("arrayKeyword = ", arrayKeyword);
+
                     return (
-                        <div key={item["galTitle"]}>
-                            <GallaryArticle item={item} />
-                        </div>
-                    );
-                } // setItemTags
-
-                setColumnItemTags(
-                    listColumnItem.map((item) => {
-                        let leftItem = item[0];
-                        let rightItem = item[1];
-
-                        // console.log(leftItem["galSearchKeyword"]);
-                        // console.log(rightItem["galSearchKeyword"]);
-
-                        return (
-                            <div className="grid" key={leftItem["galTitle"]}>
-                                <GallaryArticle item={leftItem} />
-                                <GallaryArticle item={rightItem} />
+                        <article key={item["galTitle"]}>
+                            <hgroup>
+                                <h4>{item["galTitle"]}</h4>
+                                <h5>{item["galPhotographyLocation"]}</h5>
+                            </hgroup>
+                            <img className={style.images} src={item["galWebImageUrl"]} alt={item["galTitle"]} />
+                            <div>
+                                <div>
+                                    {arrayKeyword.map((searchKey) => {
+                                        return (
+                                            <span key={searchKey} className={style.output}>{searchKey}</span>
+                                        );
+                                    })}
+                                </div>
                             </div>
-                        );
+                        </article>
+                    );
+                }
 
-                    }) // listColumnItem.map
-                ); // setColumnItemTags
+                // 
+                setLeftItemTags(
+                    listLeftItem.map((item) => setItemTags(item))
+                );
+
+                setRightItemTags(
+                    listRightItem.map((item) => setItemTags(item))
+                );
 
                 setBottomItemTags(
                     listBottomItem.map((item) => setItemTags(item))
@@ -146,14 +152,7 @@ const Gallary = () => {
 
                 setNavTags(
                     pageArray.map((item) => {
-                        if (item - pageNumber === - navButtonCount) {
-                            return (
-                                <li key={item} className={style.navButton}>
-                                    <button onClick={navFirstButtonClicked}>◀</button>
-                                </li>
-                            );
-                        }
-                        else if (Math.abs(item - pageNumber) < navButtonCount) {
+                        if (Math.abs(item - pageNumber) < 4) {
                             return (
                                 <li key={item} className={style.navButton}>
                                     <button className={item === pageNumber ? "contrast outline" : "outline"}
@@ -163,31 +162,27 @@ const Gallary = () => {
                                 </li>
                             );
                         }
-                        else if (item - pageNumber === navButtonCount) {
-                            return (
-                                <li key={item} className={style.navButton}>
-                                    <button onClick={navLastButtonClicked}>▶</button>
-                                </li>
-                            );
-                        }
 
-                    }) // pageArray.map
-                ); // setNavTags
+                    })
+                );
 
             })
             .catch((err) => {
                 console.log("err = ", err);
                 setBottomItemTags(<strong>검색 결과가 없습니다</strong>);
-            }); // fetch(url)
+            });
 
-    } // search()
+        // // reset input
+        // txtRef.current.value = "";
+    }
 
     const reset = (e) => {
         console.log("reset()");
 
         e.preventDefault();
 
-        setColumnItemTags(<></>);
+        setLeftItemTags(<></>);
+        setRightItemTags(<></>);
         setBottomItemTags(<></>);
         setNavTags(<></>);
 
@@ -207,43 +202,12 @@ const Gallary = () => {
         search(e);
     }
 
-    const navFirstButtonClicked = (e) => {
-        console.log("navFirstButtonClicked()");
-
-        e.preventDefault();
-
-        // 
-        pageNumber -= navButtonCount;
-        if (pageNumber < 1) {
-            pageNumber = 1;
-        }
-        console.log("pageNumber = ", pageNumber);
-
-        search(e);
-    }
-
-    const navLastButtonClicked = (e) => {
-        console.log("navLastButtonClicked()");
-
-        e.preventDefault();
-        // 
-        pageNumber += navButtonCount;
-        if (pageNumber > pageCount) {
-            pageNumber = pageCount;
-        }
-        console.log("pageNumber = ", pageNumber);
-
-        search(e);
-    }
-
     useEffect(() => {
         txtRef.current.focus();
     }, []);
 
     const sortingChanged = (e) => {
         console.log("sortingChanged()");
-
-        e.preventDefault();
 
         sorting = e.target.value;
         console.log("sorting = ", sorting);
@@ -292,7 +256,10 @@ const Gallary = () => {
                 </form>
                 <div className="grid">
                     <div>
-                        {columnItemTags}
+                        {leftItemTags}
+                    </div>
+                    <div>
+                        {rightItemTags}
                     </div>
                 </div>
                 <div>
@@ -303,7 +270,13 @@ const Gallary = () => {
                 <footer>
                     <nav>
                         <ul>
+                            ◀
+                        </ul>
+                        <ul>
                             {navTags}
+                        </ul>
+                        <ul>
+                            ▶
                         </ul>
                     </nav>
                 </footer>
