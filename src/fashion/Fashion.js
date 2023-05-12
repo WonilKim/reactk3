@@ -76,102 +76,94 @@ const Fashion = () => {
     const bottom_collar = [];
     const onepiece_collar = outer_collar;
 
-    const [styleTags, setStyleTags] = useState(0);
+    const [styleTags, setStyleTags] = useState(<></>);
     const [selectedStyles, setSelectedStyles] = useState([]);
     useEffect(() => {
         console.log('-- useEffect() selectedStyles changed', selectedStyles);
 
     }, [selectedStyles]);
 
-    const [categoryTags, setCategoryTags] = useState(0);
+    const [categoryTags, setCategoryTags] = useState(<></>);
     const [selectedCategories, setSelectedCategories] = useState([]);
     useEffect(() => {
         console.log('-- useEffect() selectedCategories changed', selectedCategories);
 
     }, [selectedCategories]);
 
-    const [fitTags, setFitTags] = useState(0);
+    const [fitTags, setFitTags] = useState(<></>);
     const [selectedFits, setSelectedFits] = useState([]);
     useEffect(() => {
         console.log('-- useEffect() selectedFits changed', selectedFits);
 
     }, [selectedFits]);
 
-    const [lengthTags, setLengthTags] = useState(0);
+    const [lengthTags, setLengthTags] = useState(<></>);
     const [selectedLengths, setSelectedLengths] = useState([]);
     useEffect(() => {
         console.log('-- useEffect() selectedLengths changed', selectedLengths);
 
     }, [selectedLengths]);
 
-    const [sleeveLengthTags, setSleeveLengthTags] = useState(0);
+    const [sleeveLengthTags, setSleeveLengthTags] = useState(<></>);
     const [selectedSleeveLengths, setSelectedSleeveLengths] = useState([]);
     useEffect(() => {
         console.log('-- useEffect() selectedSleeveLengths changed', selectedSleeveLengths);
 
     }, [selectedSleeveLengths]);
 
-    const [colorTags, setColorTags] = useState(0);
+    const [colorTags, setColorTags] = useState(<></>);
     const [selectedColors, setSelectedColors] = useState([]);
     useEffect(() => {
         console.log('-- useEffect() selectedColors changed', selectedColors);
 
     }, [selectedColors]);
 
-    const [materialTags, setMaterialTags] = useState(0);
+    const [materialTags, setMaterialTags] = useState(<></>);
     const [selectedMaterials, setSelectedMaterials] = useState([]);
     useEffect(() => {
         console.log('-- useEffect() selectedMaterials changed', selectedMaterials);
 
     }, [selectedMaterials]);
 
-    const [detailTags, setDetailTags] = useState(0);
+    const [detailTags, setDetailTags] = useState(<></>);
     const [selectedDetails, setSelectedDetails] = useState([]);
     useEffect(() => {
         console.log('-- useEffect() selectedDetails changed', selectedDetails);
 
     }, [selectedDetails]);
 
-    const [printTags, setPrintTags] = useState(0);
+    const [printTags, setPrintTags] = useState(<></>);
     const [selectedPrints, setSelectedPrints] = useState([]);
     useEffect(() => {
         console.log('-- useEffect() selectedPrints changed', selectedPrints);
 
     }, [selectedPrints]);
 
-    const [necklineTags, setNecklineTags] = useState(0);
+    const [necklineTags, setNecklineTags] = useState(<></>);
     const [selectedNecklines, setSelectedNecklines] = useState([]);
     useEffect(() => {
         console.log('-- useEffect() selectedNecklines changed', selectedNecklines);
 
     }, [selectedNecklines]);
 
-    const [collarTags, setCollarTags] = useState(0);
+    const [collarTags, setCollarTags] = useState(<></>);
     const [selectedCollars, setSelectedCollars] = useState([]);
     useEffect(() => {
         console.log('-- useEffect() selectedCollars changed', selectedCollars);
 
     }, [selectedCollars]);
 
-
-    //    const styleTags = (
-    //         styles.map((item) => {
-    //             return (
-    //                 <label key={item} >
-    //                     <input type="checkbox" className="styleCheckbox" id={item} name={item} value={item} onChange={onStyleChanged} />
-    //                     {item}
-    //                 </label>
-    //             );
-
-    //         })
-    //     );
-
-
-
-    const [selectedPart, setSelectedPart] = useState(0);
+    const [selectedPart, setSelectedPart] = useState("");
     // selectedPart 가 바뀌면 실행됨
     useEffect(() => {
         console.log('-- useEffect() selectedPart changed', selectedPart);
+
+        if (selectedPart === "") {
+            return;
+        }
+
+        const colCount = 3;
+        let columnTags;
 
         let styles = [];
         let categories = [];
@@ -247,129 +239,138 @@ const Fashion = () => {
                 break;
         }
 
+        const setCheckboxColumnsTags = (col, className, onChange) => {
+            // console.log("col = " + col);
+            if (col.length === 0) {
+                // console.log("col = " + col + ", className = " + className);
+                return;
+            }
+            return (
+                <div key={col} className={style.checkboxColumn}>
+                    {col.map((item) => {
+                        // console.log("col = " + col);
+                        return (
+                            <label key={item}>
+                                <input type="checkbox" className={className + "Checkbox"} id={item} name={item} value={item} onChange={onChange} />
+                                {item}
+                            </label>
+                        );
+                    })}
+                </div>
+            );
+        }
+
+        const spitDataToCols = (items) => {
+            let cols = [];
+            for (let i = 0; i < colCount; i++) {
+                cols.push([]);
+            }
+            for (let i = 0; i < items.length; i++) {
+                cols[i % colCount].push(items[i]);
+            }
+
+            return cols;
+        }
+
+        //
+        columnTags = spitDataToCols(styles);
+        setStyleTags(<></>);
         setStyleTags(
-            styles.map((item) => {
-                return (
-                    <label key={item} >
-                        <input type="checkbox" className="styleCheckbox" id={item} name={item} value={item} onChange={onStyleChanged} />
-                        {item}
-                    </label>
-                );
+            columnTags.map((col) => {
+                console.log("* col", col);
+                return setCheckboxColumnsTags(col, "style", onStyleChanged);
             })
         );
 
+        columnTags = spitDataToCols(categories);
+        setCategoryTags(<></>);
         setCategoryTags(
-            categories.map((item) => {
-                return (
-                    <label key={item} >
-                        <input type="checkbox" className="categoryCheckbox" id={item} name={item} value={item} onChange={onCategoryChanged} />
-                        {item}
-                    </label>
-                );
+            columnTags.map((col) => {
+                console.log("* col", col);
+                return setCheckboxColumnsTags(col, "category", onCategoryChanged);
             })
         );
 
+        columnTags = spitDataToCols(fits);
+        setFitTags(<></>);
         setFitTags(
-            fits.map((item) => {
-                return (
-                    <label key={item} >
-                        <input type="checkbox" className="fitCheckbox" id={item} name={item} value={item} onChange={onFitChanged} />
-                        {item}
-                    </label>
-                );
+            columnTags.map((col) => {
+                console.log("* col", col);
+                return setCheckboxColumnsTags(col, "fit", onFitChanged);
             })
         );
 
+        columnTags = spitDataToCols(lengths);
+        setLengthTags(<></>);
         setLengthTags(
-            lengths.map((item) => {
-                return (
-                    <label key={item} >
-                        <input type="checkbox" className="lengthCheckbox" id={item} name={item} value={item} onChange={onLengthChanged} />
-                        {item}
-                    </label>
-                );
+            columnTags.map((col) => {
+                console.log("* col", col);
+                return setCheckboxColumnsTags(col, "length", onLengthChanged);
             })
         );
 
+        columnTags = spitDataToCols(sleeve_lengths);
+        setSleeveLengthTags(<></>);
         setSleeveLengthTags(
-            sleeve_lengths.map((item) => {
-                return (
-                    <label key={item} >
-                        <input type="checkbox" className="sleeveLengthCheckbox" id={item} name={item} value={item} onChange={onSleeveLengthChanged} />
-                        {item}
-                    </label>
-                );
+            columnTags.map((col) => {
+                console.log("* col", col);
+                return setCheckboxColumnsTags(col, "sleeveLength", onSleeveLengthChanged);
             })
         );
 
+        columnTags = spitDataToCols(colors);
+        setColorTags(<></>);
         setColorTags(
-            colors.map((item) => {
-                return (
-                    <label key={item} >
-                        <input type="checkbox" className="colorCheckbox" id={item} name={item} value={item} onChange={onNecklineChanged} />
-                        {item}
-                    </label>
-                );
+            columnTags.map((col) => {
+                console.log("* col", col);
+                return setCheckboxColumnsTags(col, "color", onColorChanged);
             })
         );
 
+        columnTags = spitDataToCols(materials);
+        setMaterialTags(<></>);
         setMaterialTags(
-            materials.map((item) => {
-                return (
-                    <label key={item} >
-                        <input type="checkbox" className="materialCheckbox" id={item} name={item} value={item} onChange={onMaterialChanged} />
-                        {item}
-                    </label>
-                );
+            columnTags.map((col) => {
+                console.log("* col", col);
+                return setCheckboxColumnsTags(col, "material", onMaterialChanged);
             })
         );
 
+        columnTags = spitDataToCols(details);
+        setDetailTags(<></>);
         setDetailTags(
-            details.map((item) => {
-                return (
-                    <label key={item} >
-                        <input type="checkbox" className="detailCheckbox" id={item} name={item} value={item} onChange={onDetailChanged} />
-                        {item}
-                    </label>
-                );
+            columnTags.map((col) => {
+                console.log("* col", col);
+                return setCheckboxColumnsTags(col, "detail", onDetailChanged);
             })
         );
 
+        columnTags = spitDataToCols(prints);
+        setPrintTags(<></>);
         setPrintTags(
-            prints.map((item) => {
-                return (
-                    <label key={item} >
-                        <input type="checkbox" className="printCheckbox" id={item} name={item} value={item} onChange={onPrintChanged} />
-                        {item}
-                    </label>
-                );
+            columnTags.map((col) => {
+                console.log("* col", col);
+                return setCheckboxColumnsTags(col, "print", onPrintChanged);
             })
         );
 
+        columnTags = spitDataToCols(collars);
+        setCollarTags(<></>);
         setCollarTags(
-            collars.map((item) => {
-                return (
-                    <label key={item} >
-                        <input type="checkbox" className="collarCheckbox" id={item} name={item} value={item} onChange={onCollarChanged} />
-                        {item}
-                    </label>
-                );
+            columnTags.map((col) => {
+                console.log("* col", col);
+                return setCheckboxColumnsTags(col, "collar", onCollarChanged);
             })
         );
 
+        columnTags = spitDataToCols(necklines);
+        setNecklineTags(<></>);
         setNecklineTags(
-            necklines.map((item) => {
-                return (
-                    <label key={item} >
-                        <input type="checkbox" className="necklineCheckbox" id={item} name={item} value={item} onChange={onNecklineChanged} />
-                        {item}
-                    </label>
-                );
+            columnTags.map((col) => {
+                console.log("* col", col);
+                return setCheckboxColumnsTags(col, "neckline", onNecklineChanged);
             })
         );
-
-
-
 
     }, [selectedPart]);
 
@@ -574,9 +575,9 @@ const Fashion = () => {
 
                 <details open>
                     <summary><h4>의상 종류</h4></summary>
-                    <div className={style.divs}>
-                        <div className={style.titles}><strong>추천을 받기 원하는 의상의 종류를 선택하세요.</strong></div>
-                        <fieldset className={style.checkboxes}>
+                    <div className={style.partCardMain}>
+                        <div className={style.partTitle}><strong>추천을 받기 원하는 의상의 종류를 선택하세요.</strong></div>
+                        <fieldset className={style.radioArea}>
                             {partTags}
                         </fieldset>
                     </div>
@@ -614,9 +615,6 @@ const Fashion = () => {
 
                 <FashionChecker summary="카라" description=""
                     tags={collarTags} setTags={setCollarTags} />
-
-
-
 
             </article>
 

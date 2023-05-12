@@ -1,27 +1,30 @@
-.styleCategory {
+.radioArea {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
     /* background-color: yellow; */
 }
 
-.checkboxes {
-    /* background-color: yellowgreen; */
-    width: 50%;
-    text-align: left;
+.checkboxColumn {
+    display: flex;
+    flex-direction: column;
+    /* background-color: skyblue; */
+    /* width: 95%; */
 }
 
-.titles {
-    width: 30%;
-    height: 100%;
-    margin-right: 10%;
-    vertical-align: middle;
+.partTitle {
+    width: 50%;
+    /* height: 100%; */
+    /* margin-right: 10%; */
+    /* vertical-align: middle; */
     /* background-color: tomato; */
 }
 
-.divs {
+.partCardMain {
     display: flex;
     flex-direction: row;
-    /* background-color: violet; */
+    /* background-color: red; */
 }
 
 .images {
@@ -29,6 +32,7 @@
     /* border-style: solid;
     border-color:hotpink; */
     margin: 10px;
+    height: inherit;
 }
 
 .divLogo {

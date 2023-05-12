@@ -8,10 +8,12 @@ const FashionChecker = (probs) => {
     return (
         <details open>
             <summary><h4>{probs.summary}</h4></summary>
-            <div className={style.divs}>
+            <div className={style.cardMain}>
                 <div className={style.titles}><strong>{probs.description}</strong></div>
-                <fieldset className={style.checkboxes}>
-                    {tags}
+                <fieldset className={style.checkboxFieldset}>
+                    <div className='grid'>
+                        {tags}
+                    </div>
                 </fieldset>
             </div>
         </details>

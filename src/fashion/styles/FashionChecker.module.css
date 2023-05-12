@@ -1,19 +1,20 @@
-.checkboxes {
+.checkboxFieldset {
     /* background-color: yellowgreen; */
-    width: 50%;
+    width: 100%;
     text-align: left;
 }
 
 .titles {
-    width: 30%;
+    /* width: 20%; */
     height: 100%;
     margin-right: 10%;
     vertical-align: middle;
     /* background-color: tomato; */
 }
 
-.divs {
+.cardMain {
     display: flex;
     flex-direction: row;
+    width: 100%;
     /* background-color: violet; */
 }
