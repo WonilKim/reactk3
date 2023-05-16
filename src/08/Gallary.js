@@ -326,8 +326,10 @@ const Gallary = () => {
                     </form>
                 </header>
                 <div>
-                    <nav>
-                        {navTags}
+                    <nav className={style.nav}>
+                        <ul>
+                            {navTags}
+                        </ul>
                     </nav>
                 </div>
                 <div className="grid">
@@ -341,7 +343,7 @@ const Gallary = () => {
                     </div>
                 </div>
                 <footer>
-                    <nav>
+                    <nav className={style.nav}>
                         <ul>
                             {navTags}
                         </ul>
