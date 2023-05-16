@@ -146,10 +146,17 @@ const Gallary = () => {
 
                 setNavTags(
                     pageArray.map((item) => {
-                        if (item - pageNumber === - navButtonCount) {
+                        if (item - pageNumber === - navButtonCount - 1) {
                             return (
                                 <li key={item} className={style.navButton}>
-                                    <button onClick={navFirstButtonClicked}>◀</button>
+                                    <button onClick={navFirstButtonClicked}>◀◀</button>
+                                </li>
+                            );
+                        }
+                        else if (item - pageNumber === - navButtonCount) {
+                            return (
+                                <li key={item} className={style.navButton}>
+                                    <button onClick={navPreviousButtonClicked}>◀</button>
                                 </li>
                             );
                         }
@@ -166,7 +173,14 @@ const Gallary = () => {
                         else if (item - pageNumber === navButtonCount) {
                             return (
                                 <li key={item} className={style.navButton}>
-                                    <button onClick={navLastButtonClicked}>▶</button>
+                                    <button onClick={navNextButtonClicked}>▶</button>
+                                </li>
+                            );
+                        }
+                        else if (item - pageNumber === navButtonCount + 1) {
+                            return (
+                                <li key={item} className={style.navButton}>
+                                    <button onClick={navLastButtonClicked}>▶▶</button>
                                 </li>
                             );
                         }
@@ -213,9 +227,36 @@ const Gallary = () => {
         e.preventDefault();
 
         // 
+        pageNumber = 0;
+
+        console.log("pageNumber = ", pageNumber);
+
+        search(e);
+    }
+
+    const navPreviousButtonClicked = (e) => {
+        console.log("navPreviousButtonClicked()");
+
+        e.preventDefault();
+
+        // 
         pageNumber -= navButtonCount;
         if (pageNumber < 1) {
             pageNumber = 1;
+        }
+        console.log("pageNumber = ", pageNumber);
+
+        search(e);
+    }
+
+    const navNextButtonClicked = (e) => {
+        console.log("navNextButtonClicked()");
+
+        e.preventDefault();
+        // 
+        pageNumber += navButtonCount;
+        if (pageNumber > pageCount) {
+            pageNumber = pageCount;
         }
         console.log("pageNumber = ", pageNumber);
 
@@ -227,10 +268,8 @@ const Gallary = () => {
 
         e.preventDefault();
         // 
-        pageNumber += navButtonCount;
-        if (pageNumber > pageCount) {
-            pageNumber = pageCount;
-        }
+        pageNumber = pageCount;
+
         console.log("pageNumber = ", pageNumber);
 
         search(e);
@@ -257,39 +296,40 @@ const Gallary = () => {
             <article>
                 <header>
                     <h3>한국관광공사 관광사진 정보</h3>
-                </header>
-                <form>
-                    <div className="grid">
-                        <div>
-                            <input ref={txtRef} type="text" id="txt1" name="txt1" onKeyDown={handleKeyDown} placeholder="키워드를 입력하세요." />
-                            {/* 컴포넌트를 제어하려면 useRef 변수를 ref 속성으로 지정해 줘야 한다 */}
-                        </div>
+                    <form>
                         <div className="grid">
-                            <button onClick={(e) => search(e)}>검색</button>
-                            <button onClick={(e) => reset(e)}>리셋</button>
+                            <div>
+                                <input ref={txtRef} type="text" id="txt1" name="txt1" onKeyDown={handleKeyDown} placeholder="키워드를 입력하세요." />
+                                {/* 컴포넌트를 제어하려면 useRef 변수를 ref 속성으로 지정해 줘야 한다 */}
+                            </div>
+                            <div className="grid">
+                                <button onClick={(e) => search(e)}>검색</button>
+                                <button onClick={(e) => reset(e)}>리셋</button>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <nav>
-                            <ul>
-                                <li>
-                                    <select id="sorting" defaultValue="A" onChange={sortingChanged}>
-                                        <option value="A">촬영일</option>
-                                        <option value="B">제목</option>
-                                        <option value="C">수정일</option>
-                                    </select>
-                                </li>
-                                <li>
-                                    <label htmlFor="sorting">순서 정렬</label>
-                                </li>
-                            </ul>
-                            <ul>
-                                {navTags}
-                            </ul>
-
-                        </nav>
-                    </div>
-                </form>
+                        <div>
+                            <nav>
+                                <ul>
+                                    <li>
+                                        <select id="sorting" defaultValue="A" onChange={sortingChanged}>
+                                            <option value="A">촬영일</option>
+                                            <option value="B">제목</option>
+                                            <option value="C">수정일</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <label htmlFor="sorting">순서 정렬</label>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </form>
+                </header>
+                <div>
+                    <nav>
+                        {navTags}
+                    </nav>
+                </div>
                 <div className="grid">
                     <div>
                         {columnItemTags}
