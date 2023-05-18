@@ -14,6 +14,12 @@ import MyRef from './07/MyRef';
 import Box_2 from './03/Box_2';
 import Gallary_1 from './08/Gallary_1';
 import Gallary from './08/Gallary';
+import RouteMain from './09/RouteMain';
+import RoutePage1 from './09/RoutePage1';
+import RoutePage2 from './09/RoutePage2';
+import FcstMain from './10/FcstMain';
+import UltraSrtFcst from './10/UltraSrtFcst';
+import VilageFcst from './10/VilageFcst';
 
 function App() {
   return (
@@ -38,7 +44,15 @@ function App() {
       <Route path='/Box' element={<Box />} />
       <Route path='/Gallary_1' element={<Gallary_1 />} />
       <Route path='/Gallary' element={<Gallary />} />
- 
+
+      <Route path='/RouteMain' element={<RouteMain />} />
+      <Route path='/RoutePage1/:item' element={<RoutePage1 />} />
+      <Route path='/RoutePage2' element={<RoutePage2 />} />
+
+      <Route path='/Fcst' element={<FcstMain />} />
+      <Route path='/UltraSrtFcst' element={<UltraSrtFcst />} />
+      <Route path='/VilageFcst' element={<VilageFcst />} />
+
     </Routes>
   );
 }
