@@ -39,6 +39,7 @@ const Introduce = () => {
                                     <li><Link to="/myclock">[04.21] React MyClock</Link></li>
                                     <li><Link to="/Hello">[04.21] Hello react</Link></li>
                                     <li><Link to="/">[04.21] Introduce (Current page)</Link></li>
+                                    <li><Link to="/Maze">Maze Problem(Data structure)</Link></li>
                                     <li><Link to="/Fashion">Fashion Recommend System (Paper Research)</Link></li>
 
                                 </ol>

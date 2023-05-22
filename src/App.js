@@ -20,6 +20,7 @@ import RoutePage2 from './09/RoutePage2';
 import FcstMain from './10/FcstMain';
 import UltraSrtFcst from './10/UltraSrtFcst';
 import VilageFcst from './10/VilageFcst';
+import Maze from './Maze/Maze';
 
 function App() {
   return (
@@ -52,6 +53,8 @@ function App() {
       <Route path='/Fcst' element={<FcstMain />} />
       <Route path='/UltraSrtFcst' element={<UltraSrtFcst />} />
       <Route path='/VilageFcst' element={<VilageFcst />} />
+
+      <Route path='/Maze' element={<Maze />} />
 
     </Routes>
   );
