@@ -184,21 +184,24 @@ const Maze = () => {
     const resetClicked = (e) => {
         console.log("-- resetClicked(e)");
 
+        e.preventDefault();
+
         finished = false;
         initialize();
-        // SetMazeTags(maze);
 
-        // stack.data.map((item) => {
-        //     document.querySelector("#div" + item.r + item.c).innerHTML = "";
-        // });
+        mazeData.map((row, idxr) => {
+            row.map((col, idxc) => {
+                document.querySelector("#div" + idxr + idxc).innerHTML = "";
+            })
+        })
 
         cur = new Point(0, 0, Directions.N);
         mark[cur.r][cur.c] = 2;
         stack.push(cur);
         console.log("cur = " + cur);
 
-        // document.querySelector("#div" + cur.r + cur.c).innerHTML = "🟢";
-        // document.querySelector("#div" + goal.r + goal.c).innerHTML = "⭕";
+        document.querySelector("#div" + cur.r + cur.c).innerHTML = "🟢";
+        document.querySelector("#div" + goal.r + goal.c).innerHTML = "⭕";
 
         stack.clear();
 
