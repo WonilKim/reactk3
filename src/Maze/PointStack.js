@@ -7,10 +7,14 @@ export class PointStack {
     }
 
     pop() {
+        if (this.data.size === 0) {
+            return null;
+        }
+
         return this.data.pop();
     }
 
-    getData() {
+    getAllData() {
         return this.data;
     }
 
@@ -24,7 +28,7 @@ export class PointStack {
 
     toString() {
         let str = "";
-        for(let d of this.data) {
+        for (let d of this.data) {
             str += " [" + d.toString() + "]";
         }
         return str;

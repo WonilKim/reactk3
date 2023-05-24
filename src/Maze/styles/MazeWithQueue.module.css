@@ -1,0 +1,31 @@
+.mazeBorder {
+    border-style: solid;
+    border-width: 1px;
+    border-color: blue;
+    width: fit-content;
+    height: fit-content; 
+}
+
+.rows {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.blockBlack {
+    width: 30px;
+    height: 30px;
+    background-color: black;
+}
+
+.blockWhite {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    text-align: center;
+    line-height: 30px;
+}

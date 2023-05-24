@@ -9,6 +9,10 @@ export class Point {
         this.c = c;
     }
 
+    copy() {
+        return new Point(this.r, this.c, this.direction);
+    }
+
     equals(p) {
         if ((this.r === p.r) && (this.c === p.c) && (this.direction === p.direction))
             return true;

@@ -21,6 +21,7 @@ import FcstMain from './10/FcstMain';
 import UltraSrtFcst from './10/UltraSrtFcst';
 import VilageFcst from './10/VilageFcst';
 import Maze from './Maze/Maze';
+import MazeWithQueue from './Maze/MazeWithQueue';
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
       <Route path='/VilageFcst' element={<VilageFcst />} />
 
       <Route path='/Maze' element={<Maze />} />
+      <Route path='/MazeWithQueue' element={<MazeWithQueue />} />
 
     </Routes>
   );
