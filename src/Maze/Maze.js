@@ -168,7 +168,7 @@ const Maze = () => {
     useEffect(() => {
         console.log("-- useEffect()");
 
-        document.querySelector("#div" + cur.r + cur.c).innerHTML = "🟢";
+        document.querySelector("#div" + cur.r +  cur.c).innerHTML = "🟢";
         document.querySelector("#div" + goal.r + goal.c).innerHTML = "⭕";
 
     }, []);

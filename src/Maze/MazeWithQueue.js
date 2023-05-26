@@ -15,7 +15,6 @@ const MazeWithQueue = () => {
     let queueNumber = 0;
 
     let method = "Stack";
-    let running = false;
     let selRef = useRef();
 
     let Directions = {
@@ -87,8 +86,6 @@ const MazeWithQueue = () => {
         console.log("-- initialize()");
 
         finished = false;
-        running = false;
-        // setClickCount(0);
 
         mark = [];
         mazeData.map((row, idxr) => {
@@ -110,11 +107,11 @@ const MazeWithQueue = () => {
 
         console.log("mark = " + mark);
 
-        let startCell = document.querySelector("#div" + curStack.r + curStack.c);
+        let startCell = document.querySelector("#div" + curStack.r + "_" + curStack.c);
         if (startCell !== null) {
             startCell.innerHTML = "🟢";
         }
-        let goalCell = document.querySelector("#div" + goal.r + goal.c);
+        let goalCell = document.querySelector("#div" + goal.r + "_" + goal.c);
         if (goalCell !== null) {
             goalCell.innerHTML = "⭕";
         }
@@ -158,11 +155,9 @@ const MazeWithQueue = () => {
 
         if (finished) {
             console.log("Finished");
-            running = false;
             return;
         }
 
-        running = true;
         // setClickCount(clickCount + 1);
 
         queueArrayCopy = [];
@@ -299,11 +294,9 @@ const MazeWithQueue = () => {
 
         if (finished) {
             console.log("Finished");
-            running = false;
             return;
         }
 
-        running = true;
         // setClickCount(clickCount + 1);
 
         let next = new Point(0, 0, 0);

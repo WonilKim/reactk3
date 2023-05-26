@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const FcstTable = (prob) => {
+const FcstTable_01 = (prob) => {
     console.log("-- FcstTable()");
 
     useEffect(() => {
@@ -229,4 +229,4 @@ const FcstTable = (prob) => {
     );
 }
 
-export default FcstTable;
+export default FcstTable_01;
