@@ -1,5 +1,6 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 
 import Introduce from './Introduce';
 import Hello from './01/Hello';
@@ -22,7 +23,10 @@ import UltraSrtFcst from './10/UltraSrtFcst';
 import VilageFcst from './10/VilageFcst';
 import Maze from './Maze/Maze';
 import MazeWithQueue from './Maze/MazeWithQueue';
-import CodeView from './102/CodeView';
+import CodeView from './10_2/CodeView';
+import Cnt_1 from './11_1/Cnt_1';
+import Cnt from './11/Cnt';
+import CntDisp from './11/CntDisp';
 
 function App() {
   return (
@@ -32,36 +36,43 @@ function App() {
     // <MyDiv/>  // 새로 만든 파일(함수) 이름. 첫글자는 대문자
     // <Introduce />
 
+    <RecoilRoot>
+      <Routes>
+        <Route path='/' element={<Introduce />} />
+        <Route path='/Hello' element={<Hello />} />
+        <Route path='/myclock' element={<MyClock />} />
+        <Route path='/Box_2' element={<Box_2 />} />
+        <Route path='/mydiv' element={<MyDiv />} />
+        <Route path='/Frcst' element={<Frcst />} />
+        <Route path='/Taccident' element={<Taccident />} />
+        <Route path='/Fashion' element={<Fashion />} />
+        <Route path='/MyRef_01' element={<MyRef_01 />} />
+        <Route path='/MyRef' element={<MyRef />} />
+        <Route path='/Box' element={<Box />} />
+        <Route path='/Gallary_1' element={<Gallary_1 />} />
+        <Route path='/Gallary' element={<Gallary />} />
 
-    <Routes>
-      <Route path='/' element={<Introduce />} />
-      <Route path='/Hello' element={<Hello />} />
-      <Route path='/myclock' element={<MyClock />} />
-      <Route path='/Box_2' element={<Box_2 />} />
-      <Route path='/mydiv' element={<MyDiv />} />
-      <Route path='/Frcst' element={<Frcst />} />
-      <Route path='/Taccident' element={<Taccident />} />
-      <Route path='/Fashion' element={<Fashion />} />
-      <Route path='/MyRef_01' element={<MyRef_01 />} />
-      <Route path='/MyRef' element={<MyRef />} />
-      <Route path='/Box' element={<Box />} />
-      <Route path='/Gallary_1' element={<Gallary_1 />} />
-      <Route path='/Gallary' element={<Gallary />} />
+        <Route path='/RouteMain' element={<RouteMain />} />
+        <Route path='/RoutePage1/:item' element={<RoutePage1 />} />
+        <Route path='/RoutePage2' element={<RoutePage2 />} />
 
-      <Route path='/RouteMain' element={<RouteMain />} />
-      <Route path='/RoutePage1/:item' element={<RoutePage1 />} />
-      <Route path='/RoutePage2' element={<RoutePage2 />} />
+        <Route path='/Fcst' element={<FcstMain />} />
+        <Route path='/UltraSrtFcst' element={<UltraSrtFcst />} />
+        <Route path='/VilageFcst' element={<VilageFcst />} />
 
-      <Route path='/Fcst' element={<FcstMain />} />
-      <Route path='/UltraSrtFcst' element={<UltraSrtFcst />} />
-      <Route path='/VilageFcst' element={<VilageFcst />} />
+        <Route path='/Maze' element={<Maze />} />
+        <Route path='/MazeWithQueue' element={<MazeWithQueue />} />
 
-      <Route path='/Maze' element={<Maze />} />
-      <Route path='/MazeWithQueue' element={<MazeWithQueue />} />
+        <Route path='/CodeView' element={<CodeView />} />
+        <Route path='/Cnt_1' element={<Cnt_1 />} />
 
-      <Route path='/CodeView' element={<CodeView />} />
 
-    </Routes>
+        <Route path='/Cnt' element={<Cnt />} />
+        <Route path='/CntDisp' element={<CntDisp />} />
+
+
+      </Routes>
+    </RecoilRoot>
   );
 }
 
